@@ -190,3 +190,37 @@ E já fora do laço, o valor do tamanho de todos os dumps é enviado para o serv
 ```shell
 zabbix tamanhodumps.total $TamanhoTotalDumpsBackup
 ```
+
+### database.size
+Tamanho da base dentro do banco. Esse item atualmente funciona apenas para o MySQL, porém nada impede de que você crie a sua versão para PostgreSQL, Oracle, MSSQL ou outro. Antes do `for` iniciar com os dumps das bases, é executado um `select` dentro da base do MySQL, retornando o tamanho de cada base, e jogando essa saída em um arquivo (variável `TmpFile`). Quando o laço se inicia, ele verifica qual a base está sendo feito o backup e coleta o seu tamanho no arquivo.
+```shell
+# Exibe o tamanho total do banco de dados
+mysql -u $USER -hlocalhost -p$PASSWORD -e \
+'SELECT table_schema AS "Database",\
+ ROUND(SUM(data_length + index_length)) \
+ AS "Size (B)" \
+ FROM information_schema.TABLES \
+ GROUP BY table_schema;' > $TmpFile
+```
+A saída é algo do tipo:
+```shell
+cat /tmp/mysqlDatabasesSize.txt
+Database        Size (B)
+asterisk        47697920
+asteriskcdrdb   324222976
+gserv   212992
+information_schema      180224
+lacuna21        4292608
+mysql   1185526
+ocsweb  197798540
+performance_schema      0
+qstats  24871089
+wordpress       1916928
+```
+
+
+E já dentro do `for`, após o dump da base:
+```shell
+          TamanhoBanco=$(awk /$banco/'{ print $NF }' $TmpFile )
+          zabbix database.size ${TamanhoBanco} [$banco]
+```
