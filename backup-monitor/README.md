@@ -18,6 +18,7 @@ O Backup monitor é utilizado para monitoramento de cada passo realizado pelo sc
 ## Explicando o funcionamento
 O script nesse repositório pode ser utilizado tranquilamente por você, porém caso queira apenas implementar no seu próprio script, você deverá ter atenção como funciona cada chave para não obter resultados vazio ou incorretos.
 
+
 ### backup.status
 Status do ultimo backup. Após a execução do dump de cada base, é realizado um teste (```Status=$( echo $? ) ```) para ver se ocorreu um erro ou foi realizado com sucesso:
 
@@ -42,6 +43,7 @@ Status do ultimo backup. Após a execução do dump de cada base, é realizado u
  
   Após o teste, o valor é enviado para o Zabbix. 0 significa que o dump ocorreu com sucesso e 1 que houve erro.
   
+  
 ### backup.status.zip
 Status da compactacao do ultimo backup. Após o dump, é realizada a compactação do dump, para redução do seu tamanho. Essa compactação também é verificada se ocorreu com sucesso (O arquivo existe, retorna 0). ou houve problema (o arquivo não foi criado, retorna 1).
  
@@ -56,6 +58,7 @@ Status da compactacao do ultimo backup. Após o dump, é realizada a compactaç�
               echo "  $banco - Tamanho COMPACTADO :  $( du -sh $banco-$DATA.dmp.gz )" >> $LOG
        fi
 ```
+
 
 ### backup.duracao
 Duração do último backup. Cada backup tem seu tempo de execução medido. São disparados dois comandos ```date```, um no início e outro no final do dump. Após a execução do dump, é realizado um cálculo, onde obtemos o valor em segundos da duração do backup.
@@ -73,6 +76,7 @@ E após o cálculo, o envio das informações ao server:
 ```shell
     zabbix duracao ${DuracaoBackup} [$banco]
 ```
+
 
 ### backup.duracao.zip
 Duração da compactação do último backup. Semelhante ao item backup.duracao, porém medindo a compactação:
