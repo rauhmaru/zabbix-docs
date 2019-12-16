@@ -42,7 +42,6 @@ function zabbix {
   # backup.tamanho = Tamanho do ultimo backup
   # backup.tamanho.zip = Tamanho do ultimo backup
   # backup.tamanho.total = Tamanho total do ultimo backup
-  # backup.duracao.execucao = Tamanho do ultimo backup
   # backup.erros.dump = Total de erros na execucao do backup
   # backup.erros.compactacao = Total de erros na compactacao do backup
 
