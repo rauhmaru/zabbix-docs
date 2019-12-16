@@ -126,10 +126,28 @@ Total de erros na execução do backup. Se caso ocorra uma falha no dump da base
 ```
 
 ### backup.erros.compactacao
-Total de erros na compactacao do backup
+Total de erros na compactação do backup. Semenhante ao backup.erros.dump, porém contabiliza os erros da compactação. Os erros são contabilizados pela variável ```ErrosCompactacao```.
+```shell
+       if [ ! -e  $BACKUP/$banco-$DATA.dmp.gz ]; then
+              echo "$DATA - $banco -> Problemas com dump" >> $LOG
+              let ErrosCompactacao++
+              zabbix status.zip 1 [$banco]
+```
+
 
 ### duracao.execucao
-Duração total do backup
+Duração total do backup. O tempo de execução do backup completo é monitorado, além do tempo de cada base individualmente. Logo no início do script, é declarada a variável ```InicioExecucao```, que será utilizada em um cálculo no final do script
+```shell
+# Inicio do backup
+InicioExecucao=$( date +%s )
+```
+Após a execução de todos dumps e compactações, defina a variável ```TerminoExecucao```, realize o cálculo, e envie para o server:
+```shell
+TerminoExecucao=$( date +%s )
+DuracaoExecucao=$((TerminoExecucao-InicioExecucao))
+zabbix duracao.execucao ${DuracaoExecucao}
+```
+
 
 ### tamanhodumps.total
 Soma de todos os dumps sem compactação
