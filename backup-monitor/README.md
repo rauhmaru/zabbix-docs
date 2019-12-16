@@ -74,6 +74,12 @@ function zabbix {
 }
 ```
 
+### backup.total.bases
+Esse item mostra quantas bases terão seus dados coletados. Por dentro do script de backup, ela executa o script [mysql-lista-bases.sh](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/mysql-lista-bases.sh) e conta quantas ocorrências da string BASE são exibidas. Esse item é alimentado logo no começo da execução do script:
+```shell
+QtdeBases=$( /scripts/mysql_lista_bases.sh | grep -c BASE )
+zabbix total.bases ${QtdeBases}
+```
 
 ### backup.status
 Status do ultimo backup. Após a execução do dump de cada base, é realizado um teste (```Status=$( echo $? ) ```) para ver se ocorreu um erro ou foi realizado com sucesso:
