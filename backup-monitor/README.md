@@ -1,8 +1,18 @@
 O Backup monitor é utilizado para monitoramento de cada passo realizado pelo script de backup, fornecendo métricas e indicadores para acompanhamento de seu backup. Todos os valores são enviados via ```zabbix-sender```. Então, certifique-se de que ele está instalado.
 
+#### Dados recentes
+![Dados recentes](img/bkpmonitor01.PNG)
+
+#### Gráfico do tamanho total do backup
+![tamanho do backup total](img/bkpmonitor02.png)
+
+#### Gráfico do tamanho do backup de uma base
+![tamanho do backup individual](img/bkpmonitor03.png)
+
+
 # backup-monitor
 ## O template
-O template é formado por:
+O template [backup monitor](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/zbx_template_backup_monitor.xml)  é composto por:
 * 7 itens, 6 do tipo Zabbix trapper e um calculado.
   * Duração total do backup
   * Tamanho total dos backups compactados
