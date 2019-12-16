@@ -35,6 +35,9 @@ O template é formado por:
   *	[{#BASE}] Duração do backup
   * [{#BASE}] Tamanho do backup
 
+# O script de coleta de informações
+Todas esses itens do template são alimentados pelos parâmetros abaixo descritos, que irá dentro do seu script de backup. 
+
 ## Funções existentes no script
 * backup.status = Status do ultimo backup
 * backup.status.zip = Status da compactação do ultimo backup
