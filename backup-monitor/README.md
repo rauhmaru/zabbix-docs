@@ -55,7 +55,6 @@ Status da compactacao do ultimo backup. Após o dump, é realizada a compactaç�
               zabbix status.zip 1 [$banco]
        else
               zabbix status.zip 0 [$banco]
-              echo "  $banco - Tamanho COMPACTADO :  $( du -sh $banco-$DATA.dmp.gz )" >> $LOG
        fi
 ```
 
@@ -81,28 +80,50 @@ E após o cálculo, o envio das informações ao server:
 ### backup.duracao.zip
 Duração da compactação do último backup. Semelhante ao item backup.duracao, porém medindo a compactação:
 ```shell
-             InicioCompactacaoBackup=$( date +%s )
-             gzip -9 $banco-$DATA.dmp
-             TerminoCompactacaoBackup=$( date +%s )
-             DuracaoCompactacaoBackup=$((TerminoCompactacaoBackup-InicioCompactacaoBackup))
+            InicioCompactacaoBackup=$( date +%s )
+            gzip -9 $banco-$DATA.dmp
+            TerminoCompactacaoBackup=$( date +%s )
+            DuracaoCompactacaoBackup=$((TerminoCompactacaoBackup-InicioCompactacaoBackup))
 ```
 E com o valor setado na variável **DuracaoCompactacaoBackup**, podemos enviar para o server:
 ```shell
-    zabbix duracao.zip ${DuracaoCompactacaoBackup} [$banco]
+zabbix duracao.zip ${DuracaoCompactacaoBackup} [$banco]
 ```
 
 
 ### backup.tamanho
-Tamanho do ultimo backup
+Tamanho do ultimo backup. Após as execuções dos dumps, também é medido o seu tamanho.
+```shell
+           TamanhoBackup=$( wc -c ${banco}-$DATA.dmp )
+           zabbix tamanho ${TamanhoBackup} [$banco]           
+```
+
 
 ### backup.tamanho.zip
-Tamanho do ultimo backup compactado
+Tamanho do ultimo backup compactado. Semelhante ao backup.tamanho, porém usando a referência do arquivo compactado.
+```shell
+           TamanhoBackupZip=$( wc -c < ${banco}-$DATA.dmp.gz )
+           zabbix tamanho.zip ${TamanhoBackupZip} [$banco]
+```
+
 
 ### backup.tamanho.total
-Tamanho total do ultimo backup (todos os backups)
+Tamanho total dos últimos backups (todos os backups). Após a execução do backup e compactação de todas as bases, o tamanho total dos arquivos compactados é obtido e enviado ao zabbix server:
+```shell
+TamanhoTotalBackup=$( du -bsc *-${DATA}.dmp.gz | awk /total/'{ print $1}' )
+zabbix tamanho.total ${TamanhoTotalBackup}
+```
+
 
 ### backup.erros.dump
-Total de erros na execucao do backup
+Total de erros na execução do backup. Se caso ocorra uma falha no dump da base de dados, ela será contabilizada e enviada para o zabbix server, para que no final seja possível de modo simples, saber quantos erros ocorreram durante aquela execução. Os erros são contabilizados pela variável ```ErrosDump```.
+```shell
+           if [ $Status != 0 ]; then
+              echo "$ - Ocorreu algum erro durante o dump !!!" >>${LOG}
+              let ErrosDump++
+              zabbix status 1 [$banco]
+
+```
 
 ### backup.erros.compactacao
 Total de erros na compactacao do backup
