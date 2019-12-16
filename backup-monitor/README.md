@@ -1,7 +1,41 @@
 O Backup monitor é utilizado para monitoramento de cada passo realizado pelo script de backup, fornecendo métricas e indicadores para acompanhamento de seu backup. Todos os valores são enviados via ```zabbix-sender```. Então, certifique-se de que ele está instalado.
 
 # backup-monitor
-## Funções existentes
+## O template
+O template é formado por:
+* 7 itens, 6 do tipo Zabbix trapper e um calculado.
+  * Duração total do backup
+  * Tamanho total dos backups compactados
+  * Tamanho total dos dumps
+  * Total de bases no backup
+  * Total de erros na compactação do backup
+  * Total de erros no backup
+  * Total de erros no dump backup
+
+* 3 gráficos:
+  * Duração dos backups
+  * Tamanho total dos backups
+  * Total de erros nos backups
+
+1 regra de descoberta, que por sua vez, cria para cada base de dados:
+* 7 itens do tipo zabbix trapper
+  * [{#BASE}] Compactação de backup
+  *	[{#BASE}] Duração da compactacao backup
+  * [{#BASE}] Duração do backup
+  * [{#BASE}] Status do backup
+  * [{#BASE}] Tamanho do backup
+  * [{#BASE}] Tamanho do backup compactado
+  * [{#BASE}] Tamanho do banco
+  
+* 2 triggers
+  * Falha na compactação da base {#BASE}
+  * Falha no dump da base {#BASE}
+  
+* 2 gráficos
+  *	[{#BASE}] Duração do backup
+  * [{#BASE}] Tamanho do backup
+
+## Funções existentes no script
 * backup.status = Status do ultimo backup
 * backup.status.zip = Status da compactação do ultimo backup
 * backup.duracao = Duracao do ultimo backup
