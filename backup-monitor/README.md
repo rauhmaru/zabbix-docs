@@ -19,6 +19,25 @@ O Backup monitor é utilizado para monitoramento de cada passo realizado pelo sc
 O script nesse repositório pode ser utilizado tranquilamente por você, porém caso queira apenas implementar no seu próprio script, você deverá ter atenção como funciona cada chave para não obter resultados vazio ou incorretos.
 
 
+### A função zabbix
+Todas as informações coletadas são enviadas via `zabbix-sender`. O comando em si tem sua sintaxe e, para simplificar a sua utilização no script, foi criada uma função.
+
+*Observação: Você deve alterar as variáveis de acordo com as suas necessidades. Se atente as variáveis ZabbixConfigFile e ZabbixServer*
+
+```shell
+function zabbix {
+  # Arquivo de configuracao do Zabbix Agent
+  ZabbixConfigFile="/etc/zabbix/zabbix_agentd.conf"
+  # Nome do host exatamente como cadastrado no Zabbix Server
+  ZabbixHostName="$HOST"
+  # Endereco do Zabbix
+  ZabbixServer="192.168.1.1"
+
+  zabbix_sender -c ${ZabbixConfigFile} -s "${ZabbixHostName}" -k backup.${1}${3} -o "${2}" -z ${ZabbixServer}
+}
+```
+
+
 ### backup.status
 Status do ultimo backup. Após a execução do dump de cada base, é realizado um teste (```Status=$( echo $? ) ```) para ver se ocorreu um erro ou foi realizado com sucesso:
 
@@ -150,4 +169,24 @@ zabbix duracao.execucao ${DuracaoExecucao}
 
 
 ### tamanhodumps.total
-Soma de todos os dumps sem compactação
+Soma de todos os dumps sem compactação. Após cada dump realizado, seu tamanho é coletado pela variável ```TamanhoBackup```, e depois somado a variável ```TamanhoTotalBackups```:
+
+Coleta do tamanho após o dump:
+```shell
+           mysqldump -h$SERVIDOR -u$USER -p$PASSWORD $banco --extended-insert --quick --routines --events --triggers >> $banco-$DATA.dmp
+           Status=$( echo $?)
+           echo "Status do backup de $banco foi $?" >> backup_status.txt
+           TerminoBackup=$( date +%s )
+           DuracaoBackup=$((TerminoBackup-InicioBackup))
+           TamanhoBackup=$( wc -c < ${banco}-$DATA.dmp )
+```
+Antes do fim do `for`, o valor dessa variável é somada a variável `TamanhoTotalBackups`
+```shell
+    TamanhoTotalDumpsBackup=$((TamanhoTotalDumpsBackup+TamanhoBackup))
+
+done
+```
+E já fora do laço, o valor do tamanho de todos os dumps é enviado para o server:
+```shell
+zabbix tamanhodumps.total $TamanhoTotalDumpsBackup
+```
