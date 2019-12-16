@@ -8,7 +8,7 @@ User=operador
 Pwd="operador"
 
 # Adicione aqui as bases de dados que nao queira que sejam monitoradas, separadas por pipe "|"
-## 1. Não remova a primeira palvra "Database"
+## 1. Não remova a primeira palavra "Database"
 
 BasesExcluidas="Database|information_schema|lost\+found|performance_schema"
 
