@@ -49,17 +49,20 @@ O template [backup monitor](https://github.com/rauhmaru/zabbix-docs/blob/master/
 Todas esses itens do template são alimentados pelos parâmetros abaixo descritos, que irá dentro do seu script de backup. 
 
 ## Funções existentes no script
-* backup.status = Status do ultimo backup
-* backup.status.zip = Status da compactação do ultimo backup
-* backup.duracao = Duracao do ultimo backup
-* backup.duracao.zip = Duracao da compactação do ultimo backup
-* backup.tamanho = Tamanho do ultimo backup
-* backup.tamanho.zip = Tamanho do ultimo backup compactado
-* backup.tamanho.total = Tamanho total do ultimo backup (todos os backups)
-* backup.erros.dump = Total de erros na execução do backup
-* backup.erros.compactacao = Total de erros na compactação do backup
-* duracao.execucao = Duração total do backup
-* tamanhodumps.total = Soma de todos os dumps sem compactação
+
+Chave | Descrição
+---- | -----
+backup.status | Status do ultimo backup 
+backup.status.zip | Status da compactação do ultimo backup
+backup.duracao | Duracao do ultimo backup
+backup.duracao.zip | Duracao da compactação do ultimo backup
+backup.tamanho | Tamanho do ultimo backup
+backup.tamanho.zip | Tamanho do ultimo backup compactado
+backup.tamanho.total | Tamanho total do ultimo backup (todos os backups)
+backup.erros.dump | Total de erros na execução do backup
+backup.erros.compactacao | Total de erros na compactação do backup
+duracao.execucao | Duração total do backup
+tamanhodumps.total | Soma de todos os dumps sem compactação
 
 
 ## Explicando o funcionamento
