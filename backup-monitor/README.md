@@ -58,10 +58,35 @@ Status da compactacao do ultimo backup. Após o dump, é realizada a compactaç�
 ```
 
 ### backup.duracao
-Duracao do ultimo backup
+Duração do último backup. Cada backup tem seu tempo de execução medido. São disparados dois comandos ```date```, um no início e outro no final do dump. Após a execução do dump, é realizado um cálculo, onde obtemos o valor em segundos da duração do backup.
+
+```shell
+for banco in $databases; do
+    InicioBackup=$( date +%s )
+```
+Após o comando do dump...
+```shell
+           TerminoBackup=$( date +%s )
+           DuracaoBackup=$((TerminoBackup-InicioBackup))
+```
+E após o cálculo, o envio das informações ao server:
+```shell
+    zabbix duracao ${DuracaoBackup} [$banco]
+```
 
 ### backup.duracao.zip
-Duracao da compactacao do ultimo backup
+Duração da compactação do último backup. Semelhante ao item backup.duracao, porém medindo a compactação:
+```shell
+             InicioCompactacaoBackup=$( date +%s )
+             gzip -9 $banco-$DATA.dmp
+             TerminoCompactacaoBackup=$( date +%s )
+             DuracaoCompactacaoBackup=$((TerminoCompactacaoBackup-InicioCompactacaoBackup))
+```
+E com o valor setado na variável **DuracaoCompactacaoBackup**, podemos enviar para o server:
+```shell
+    zabbix duracao.zip ${DuracaoCompactacaoBackup} [$banco]
+```
+
 
 ### backup.tamanho
 Tamanho do ultimo backup
@@ -77,3 +102,9 @@ Total de erros na execucao do backup
 
 ### backup.erros.compactacao
 Total de erros na compactacao do backup
+
+### duracao.execucao
+Duração total do backup
+
+### tamanhodumps.total
+Soma de todos os dumps sem compactação
