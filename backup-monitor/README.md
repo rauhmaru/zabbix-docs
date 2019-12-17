@@ -33,17 +33,32 @@ chmod +x /scripts/mysql-lista-bases.sh
 * Crie um usuário com permissão de apenas leitura para essa rotina. Você pode utilizar também o mesmo usuário que executa o backup das bases.
 
 
+### No Zabbix Server
+Adicione o template [Backup monitor](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/zbx_template_backup_monitor.xml) ao servidor de banco de dados no Zabbix Server.
 
-## O template
+#### Mapeamento de valores (Value mapping)
+Caso o template não tenha importado os valores de mapeamento necessários para representação dos status dos backups, você pode criá-los em Administração > Geral > Mapeamento de valores. Crie um novo mapeamento de valores com os status:
+
+Valor | Mapeamento
+----- | ----------
+0 | OK
+1 | Falha
+
+No Zabbix 4.2, existem alguns mapeamentos de valores que possuem conteúdo similar, como por exemplo o IDRAC-MIB-SMIv2::BooleanType, QTECH-MIB::sysFanStatus e QTECH-MIB::sysPowerStatus.
+
+
+#### O template backup monitor
 O template [backup monitor](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/zbx_template_backup_monitor.xml)  é composto por:
-* 7 itens, 6 do tipo Zabbix trapper e um calculado.
-  * Duração total do backup
-  * Tamanho total dos backups compactados
-  * Tamanho total dos dumps
-  * Total de bases no backup
-  * Total de erros na compactação do backup
-  * Total de erros no backup
-  * Total de erros no dump backup
+
+Item | Chave | Tipo
+---- | ----- | ----
+Duração total do backup | backup.duracao.execucao	| Zabbix trapper
+Tamanho total dos backups compactados | backup.tamanho.total	| Zabbix trapper
+Tamanho total dos dumps | backup.tamanhodumps.total	| Zabbix trapper
+Total de bases no backup | backup.total.bases	| Zabbix trapper
+Total de erros na compactação do backup | backup.erros.compactacao	| Zabbix trapper
+Total de erros no backup | backup.total.erros	| Calculado
+Total de erros no dump backup | backup.erros.dump	| Zabbix trapper
 
 * 3 gráficos:
   * Duração dos backups
@@ -51,18 +66,23 @@ O template [backup monitor](https://github.com/rauhmaru/zabbix-docs/blob/master/
   * Total de erros nos backups
 
 1 regra de descoberta, que por sua vez, cria para cada base de dados:
-* 7 itens do tipo zabbix trapper
-  * [{#BASE}] Compactação de backup
-  *	[{#BASE}] Duração da compactacao backup
-  * [{#BASE}] Duração do backup
-  * [{#BASE}] Status do backup
-  * [{#BASE}] Tamanho do backup
-  * [{#BASE}] Tamanho do backup compactado
-  * [{#BASE}] Tamanho do banco
+
+Protótipo de item | chave 
+-------------- | ----- 
+[{#BASE}] Compactação de backup | backup.status.zip[{#BASE}]	
+[{#BASE}] Duração da compactação backup | backup.duracao.zip[{#BASE}]	
+[{#BASE}] Duração do backup | backup.duracao[{#BASE}]	
+[{#BASE}] Status do backup | backup.status[{#BASE}]	
+[{#BASE}] Tamanho do backup | backup.tamanho[{#BASE}]	
+[{#BASE}] Tamanho do backup compactado | backup.tamanho.zip[{#BASE}]	
+[{#BASE}] Tamanho do banco | backup.database.size[{#BASE}]	
   
 * 2 triggers
-  * Falha na compactação da base {#BASE}
-  * Falha no dump da base {#BASE}
+
+Trigger | Expressão | Tags
+------- | --------- | ----
+Falha na compactação da base {#BASE} | 	{Template Backup Monitor:backup.status.zip[{#BASE}].last()}=1 | app:mysql, service:backup
+Falha no dump da base {#BASE} | 	{Template Backup Monitor:backup.status[{#BASE}].last()}=1 | app:mysql, service:backup
   
 * 2 gráficos
   *	[{#BASE}] Duração do backup
