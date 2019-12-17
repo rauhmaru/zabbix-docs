@@ -99,11 +99,10 @@ for banco in $databases; do
 
 		# Dump da base
            mysqldump -h$SERVIDOR -u$USER -p$PASSWORD $banco --extended-insert --quick --routines --events --triggers >> $banco-$DATA.dmp
-           Status=$( echo $?)
-           echo "Status do backup de $banco foi $?" >> backup_status.txt
+           Status=$( echo $? )
            TerminoBackup=$( date +%s )
            DuracaoBackup=$((TerminoBackup-InicioBackup))
-           TamanhoBackup=$( du -sbc ${banco}-$DATA.dmp | awk /total/'{ print $1 }')
+           TamanhoBackup=$( wc -c < ${banco}-$DATA.dmp )
            echo "Duracao do backup: ${DuracaoBackup}" >> ${LOG}
   
           TamanhoBanco=$(awk /$banco/'{ print $NF }' $TmpFile )
@@ -126,7 +125,7 @@ for banco in $databases; do
              TerminoCompactacaoBackup=$( date +%s )
              DuracaoCompactacaoBackup=$((TerminoCompactacaoBackup-InicioCompactacaoBackup))
 
-             TamanhoBackupZip=$( du -sbc ${banco}-$DATA.dmp.gz | awk /total/'{ print $1 }')
+             TamanhoBackupZip=$( wc -c < ${banco}-$DATA.dmp.gz )
 
        echo " - DUMP COMPACTADO " >> $LOG
        if [ ! -e  $BACKUP/$banco-$DATA.dmp.gz ]; then
