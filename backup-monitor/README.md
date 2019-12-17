@@ -1,10 +1,10 @@
 # backup-monitor
 
 ## Por que devo usar?
-O backup monitor pode ser utilizado para monitoramento de cada passo realizado pelo script de backup, fornecendo métricas e indicadores para acompanhamento de seu backup. Todos os valores são enviados via ```zabbix-sender```. Então, certifique-se de que ele está instalado.
+O backup monitor pode ser utilizado para monitoramento de cada passo realizado pelo script de backup, fornecendo métricas e indicadores para acompanhamento de seu backup. Todos os valores são enviados via ```zabbix-sender``` para o Zabbix Server.
 
 ## Motivação
-O Backup monitor surgiu de uma vontade de ajudar o DBA de nossa empresa. Todo o processo do backup do banco de dados é feito via shell-script (procedimento muito comum com bases MySQL e PostgreSQL) e enviados seus resultados enviados por e-mail. A partir do momento em que você tem mais de 10 servidores de banco de dados e algo em torno de 100 ou mais bases de dados, com backup 2 vezes ao dia, ler esses emails se torna um trabalho bastante chato e com grande facilidade de algo passar desapercebido. Colocando esses dados no Zabbix, o DBA poderá agora obversar todas as informações em telas que ele pode criar e tratar as falhas que o zabbix notificar via trigger.
+O Backup monitor surgiu de uma vontade de ajudar o DBA de nossa empresa. Todo o processo do backup do banco de dados é feito via shell-script (procedimento muito comum com bases MySQL e PostgreSQL) e seus resultados enviados por e-mail. A partir do momento em que você tem mais de 10 servidores de banco de dados e algo em torno de 100 ou mais bases de dados, com backup 2 vezes ao dia, ler esses emails se torna um trabalho bastante chato e com grande facilidade de algo passar desapercebido. Com esses dados no Zabbix, o DBA poderá agora obversar todas as informações em telas que ele pode criar e tratar as falhas que o zabbix notificar via trigger.
 
 
 #### Screenshots
@@ -19,6 +19,22 @@ O Backup monitor surgiu de uma vontade de ajudar o DBA de nossa empresa. Todo o 
 
 ## Configuração
 ### No servidor de banco de dados
+#### Instale o `zabbix-sender` no host
+No CentOS:
+```shell
+yum install zabbix-sender.x86_64
+```
+
+Para maiores informações sobre o uso do executável, [consulte a documentação oficial](https://www.zabbix.com/documentation/4.4/manpages/zabbix_sender).
+
+#### Adicionando o arquivo de userparameter
+Coloque o arquivo [userparameter_lld.conf](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/userparameter_lld.conf) no diretório `/etc/zabbix/zabbix_agentd.d`.
+
+Em seguida, reinicie o serviço do agente do Zabbix:
+```shell
+systemctl restart zabbix-agent
+```
+
 #### Configurando o script de LLD (Low Level Discovery)
 O script [mysql-lista-bases.sh](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/mysql-lista-bases.sh) é necessário para listar as bases de dados que serão monitoradas pelo Zabbix. Após adicionar o template no seu servidor de banco de dados no Zabbix, a regra de discovery executará esse script.
 
