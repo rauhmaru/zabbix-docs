@@ -228,7 +228,7 @@ zabbix duracao.zip ${DuracaoCompactacaoBackup} [$banco]
 ### backup.tamanho
 Tamanho do ultimo backup. Após as execuções dos dumps, medimos o seu tamanho.
 ```shell
-           TamanhoBackup=$( wc -c ${banco}-$DATA.dmp )
+           TamanhoBackup=$( wc -c < ${banco}-$DATA.dmp )
            zabbix tamanho ${TamanhoBackup} [$banco]           
 ```
 
