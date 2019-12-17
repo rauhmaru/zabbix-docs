@@ -105,19 +105,19 @@ Falha no dump da base {#BASE} | 	{Template Backup Monitor:backup.status[{#BASE}]
   * [{#BASE}] Tamanho do backup
 
 # O script de coleta de informações
-Todas esses itens do template são alimentados pelos parâmetros abaixo descritos, que irá dentro do seu script de backup. 
+Todos os itens do template são alimentados pelos parâmetros abaixo descritos.
 
-## Funções existentes no script
+## Parâmetros do script
 
 Chave | Descrição
 ---- | -----
 backup.status | Status do ultimo backup 
 backup.status.zip | Status da compactação do ultimo backup
 backup.duracao | Duracao do ultimo backup
-backup.duracao.zip | Duracao da compactação do ultimo backup
+backup.duracao.zip | Duracao da compactação do último backup
 backup.tamanho | Tamanho do ultimo backup
-backup.tamanho.zip | Tamanho do ultimo backup compactado
-backup.tamanho.total | Tamanho total do ultimo backup (todos os backups)
+backup.tamanho.zip | Tamanho do último backup compactado
+backup.tamanho.total | Tamanho total do último backup (todos os backups)
 backup.erros.dump | Total de erros na execução do backup
 backup.erros.compactacao | Total de erros na compactação do backup
 duracao.execucao | Duração total do backup
@@ -125,11 +125,11 @@ tamanhodumps.total | Soma de todos os dumps sem compactação
 
 
 ## Explicando o funcionamento
-O script nesse repositório pode ser utilizado tranquilamente por você, porém caso queira apenas implementar no seu próprio script, você deverá ter atenção como funciona cada chave para não obter resultados vazio ou incorretos.
+O script nesse repositório pode ser utilizado tranquilamente, porém, caso queira apenas implementar no seu próprio script, você deverá ter atenção como funciona cada chave para não obter resultados vazios ou incorretos.
 
 
 ### A função zabbix
-Todas as informações coletadas são enviadas via `zabbix-sender`. O comando em si tem sua sintaxe e, para simplificar a sua utilização no script, foi criada uma função.
+Todas as informações coletadas durante o script são enviadas via `zabbix-sender`. Para simplificar o seu uso, criei uma função.
 
 *Observação: Você deve alterar as variáveis de acordo com as suas necessidades. Se atente as variáveis ZabbixConfigFile e ZabbixServer*
 
@@ -179,7 +179,7 @@ Status do ultimo backup. Após a execução do dump de cada base, é realizado u
   
   
 ### backup.status.zip
-Status da compactacao do ultimo backup. Após o dump, é realizada a compactação do dump, para redução do seu tamanho. Essa compactação também é verificada se ocorreu com sucesso (O arquivo existe, retorna 0). ou houve problema (o arquivo não foi criado, retorna 1).
+Status da compactação do último backup. Após o dump, é realizada a compactação do dump, para redução do seu tamanho. Essa compactação também é verificada se ocorreu com sucesso (O arquivo existe, retorna 0), ou houve problema (o arquivo não foi criado, retorna 1).
  
  ```shell
        echo " - DUMP COMPACTADO " >> $LOG
@@ -212,7 +212,7 @@ E após o cálculo, o envio das informações ao server:
 
 
 ### backup.duracao.zip
-Duração da compactação do último backup. Semelhante ao item backup.duracao, porém medindo a compactação:
+Duração da compactação do último backup. Semelhante ao item backup.duracao, porém medindo a duração da compactação:
 ```shell
             InicioCompactacaoBackup=$( date +%s )
             gzip -9 $banco-$DATA.dmp
@@ -226,7 +226,7 @@ zabbix duracao.zip ${DuracaoCompactacaoBackup} [$banco]
 
 
 ### backup.tamanho
-Tamanho do ultimo backup. Após as execuções dos dumps, também é medido o seu tamanho.
+Tamanho do ultimo backup. Após as execuções dos dumps, medimos o seu tamanho.
 ```shell
            TamanhoBackup=$( wc -c ${banco}-$DATA.dmp )
            zabbix tamanho ${TamanhoBackup} [$banco]           
@@ -234,7 +234,7 @@ Tamanho do ultimo backup. Após as execuções dos dumps, também é medido o se
 
 
 ### backup.tamanho.zip
-Tamanho do ultimo backup compactado. Semelhante ao backup.tamanho, porém usando a referência do arquivo compactado.
+Tamanho do ultimo backup compactado. Semelhante ao backup.tamanho, porém usando como referência o arquivo compactado.
 ```shell
            TamanhoBackupZip=$( wc -c < ${banco}-$DATA.dmp.gz )
            zabbix tamanho.zip ${TamanhoBackupZip} [$banco]
@@ -250,7 +250,7 @@ zabbix tamanho.total ${TamanhoTotalBackup}
 
 
 ### backup.erros.dump
-Total de erros na execução do backup. Se caso ocorra uma falha no dump da base de dados, ela será contabilizada e enviada para o zabbix server, para que no final seja possível de modo simples, saber quantos erros ocorreram durante aquela execução. Os erros são contabilizados pela variável ```ErrosDump```.
+Total de erros na execução do backup. Caso ocorra uma falha no dump da base de dados, ela será contabilizada e enviada para o zabbix server, para que no final seja possível, de modo simples, saber quantos erros ocorreram durante aquela execução. Os erros são contabilizados pela variável ```ErrosDump```.
 ```shell
            if [ $Status != 0 ]; then
               echo "$ - Ocorreu algum erro durante o dump !!!" >>${LOG}
@@ -270,12 +270,12 @@ Total de erros na compactação do backup. Semenhante ao backup.erros.dump, por�
 
 
 ### duracao.execucao
-Duração total do backup. O tempo de execução do backup completo é monitorado, além do tempo de cada base individualmente. Logo no início do script, é declarada a variável ```InicioExecucao```, que será utilizada em um cálculo no final do script
+Duração total do backup. O tempo de execução do backup completo é monitorado, além do tempo de cada base individualmente. Logo no início do script, é declarada a variável ```InicioExecucao```, que será utilizada em um cálculo no final do script.
 ```shell
 # Inicio do backup
 InicioExecucao=$( date +%s )
 ```
-Após a execução de todos dumps e compactações, defina a variável ```TerminoExecucao```, realize o cálculo, e envie para o server:
+Após a execução de todos dumps e compactações, é calculado o tempo total de duração do backup e enviado para o server:
 ```shell
 TerminoExecucao=$( date +%s )
 DuracaoExecucao=$((TerminoExecucao-InicioExecucao))
@@ -290,7 +290,6 @@ Coleta do tamanho após o dump:
 ```shell
            mysqldump -h$SERVIDOR -u$USER -p$PASSWORD $banco --extended-insert --quick --routines --events --triggers >> $banco-$DATA.dmp
            Status=$( echo $?)
-           echo "Status do backup de $banco foi $?" >> backup_status.txt
            TerminoBackup=$( date +%s )
            DuracaoBackup=$((TerminoBackup-InicioBackup))
            TamanhoBackup=$( wc -c < ${banco}-$DATA.dmp )
