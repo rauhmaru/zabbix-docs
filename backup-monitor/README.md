@@ -1,3 +1,5 @@
+# backup-monitor
+
 ## Por que devo usar?
 O backup monitor pode ser utilizado para monitoramento de cada passo realizado pelo script de backup, fornecendo métricas e indicadores para acompanhamento de seu backup. Todos os valores são enviados via ```zabbix-sender```. Então, certifique-se de que ele está instalado.
 
@@ -5,17 +7,33 @@ O backup monitor pode ser utilizado para monitoramento de cada passo realizado p
 O Backup monitor surgiu de uma vontade de ajudar o DBA de nossa empresa. Todo o processo do backup do banco de dados é feito via shell-script (procedimento muito comum com bases MySQL e PostgreSQL) e enviados seus resultados enviados por e-mail. A partir do momento em que você tem mais de 10 servidores de banco de dados e algo em torno de 100 ou mais bases de dados, com backup 2 vezes ao dia, ler esses emails se torna um trabalho bastante chato e com grande facilidade de algo passar desapercebido. Colocando esses dados no Zabbix, o DBA poderá agora obversar todas as informações em telas que ele pode criar e tratar as falhas que o zabbix notificar via trigger.
 
 
-#### Dados recentes
+#### Screenshots
 ![Dados recentes](img/bkpmonitor01.PNG)
 
 #### Gráfico do tamanho total do backup
-![tamanho do backup total](img/bkpmonitor02.png)
+![tamanho do backup total](img/bkpmonitor03.png)
 
 #### Gráfico do tamanho do backup de uma base
-![tamanho do backup individual](img/bkpmonitor03.png)
+![tamanho do backup individual](img/bkpmonitor02.png)
 
 
-# backup-monitor
+## Configuração
+### No servidor de banco de dados
+#### Configurando o script de LLD (Low Level Discovery)
+O script [mysql-lista-bases.sh](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/mysql-lista-bases.sh) é necessário para listar as bases de dados que serão monitoradas pelo Zabbix. Após adicionar o template no seu servidor de banco de dados no Zabbix, a regra de discovery executará esse script.
+
+Ele executa um `show databases;`, lista as bases, remove o que não é necessário e produz uma saída em JSON, que será utilizada pelo Zabbix Server.
+
+##### Recomendações
+*  No meu exemplo, eu o coloquei no diretório `/scripts`. Caso altere esse local, não se esqueça de mudar sua localização também no arquivo [userparameter_lld.conf](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/userparameter_lld.conf), que é quem invoca e executa esse script. Lembre-se de dar permissão de execução:
+```shell
+chmod +x /scripts/mysql-lista-bases.sh
+```
+
+* Crie um usuário com permissão de apenas leitura para essa rotina. Você pode utilizar também o mesmo usuário que executa o backup das bases.
+
+
+
 ## O template
 O template [backup monitor](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/zbx_template_backup_monitor.xml)  é composto por:
 * 7 itens, 6 do tipo Zabbix trapper e um calculado.
