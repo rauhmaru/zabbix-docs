@@ -114,7 +114,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>Services {#SERVICE_LOAD}</name>
+                                    <name>Systemd {#SERVICE_LOAD} services</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item/>
