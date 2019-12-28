@@ -1,5 +1,7 @@
 #!/bin/bash
 # Lista os servicos e verifica se estao em execucao, usando systemd
+# Raul Liborio, rauhmaru@opensuse.org / gmail.com
+# v0.1 - 27/01/2019
 
 tmpfile=$( mktemp )
 jsonFile=$( mktemp )
