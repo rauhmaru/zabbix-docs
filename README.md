@@ -10,3 +10,4 @@ Materiais criados para atender demandas pessoais :)
 # Templates
 
 * [Backup Monitor](https://github.com/rauhmaru/zabbix-docs/tree/master/backup-monitor): Template desenvolvido para monitoramento de backups, principalmente de banco de dados (MySQL, PostgreSQL...)
+* [Systemd Services Monitor](https://github.com/rauhmaru/zabbix-docs/tree/master/systemd-services-monitor): Monitora todos os serviços baseados em systemd.
