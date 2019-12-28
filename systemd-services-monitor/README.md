@@ -24,6 +24,18 @@ systemctl restart zabbix-agent
 ```
 
 ### No Zabbix Server
+Vá em Administração > Geral > Expressões regulares e crie:
+
+```
+Nome: Remove special characters
+Tipo de expressão: Qualquer sequência de caracteres incluídos
+Expressão: "\,',",`,*,?,[,],{,},~,$,!,&,;,(,),<,>,|,#,@,0x0a
+Delimitador: , (vírgula)
+Distinguir maiúscula/minúscula: Sim
+```
+
+![Regex](img_zabbix_systemd_regex.png)
+
 Importe o [template linux systemd services](./template_linux_systemd_services.xml) para o seu Zabbix Server e em seguida, adicione no servidor que deseja monitorar os serviços.
 
 
