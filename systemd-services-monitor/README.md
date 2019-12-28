@@ -28,6 +28,10 @@ Importe o [template linux systemd services](./template_linux_systemd_services.xm
 
 
 ### Observações importantes
+Muitos serviços até então desconhecidos irão aparecer. Recomendo que após o primeiro discovery, seja feita uma análise e que alguns (ou vários) serviços sejam desabilitados.
+
+Atualmente o template não possui nenhuma trigger, visto que o systemd possui uma alta volatilidade no auto-gerenciamento de seus serviços, iniciando de parando conforme sua necessidade. A criação de triggers utilizando regras de LLD iria gerar um alto número de falsos-positivos.
 
 ## Rerefências
-* 
+* [How To Use Systemctl to Manage Systemd Services and Units
+](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)
