@@ -10,7 +10,7 @@ Após fazer o [Template para o sysV](https://github.com/rauhmaru/sysv_services_m
 Crie o diretório `/scripts` e mova os scripts para dentro. Não esqueça da permissão de execução:
 
 ```shell
-git clone https://github.com/rauhmaru/sysv_services_monitor.git
+git clone https://github.com/rauhmaru/zabbix-docs.git
 mkdir /scripts
 cp zabbix-docs/systemd-services-monitor/systemd_* /scripts
 chmod +x /scripts systemd_*
