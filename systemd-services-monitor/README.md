@@ -16,7 +16,7 @@ cp zabbix-docs/systemd-services-monitor/systemd_* /scripts
 chmod +x /scripts systemd_*
 ```
 
-Em seguida, coloque o arquivo [userparameter_systemd.conf](./userparmeter_systemd.conf) no diretório de configurações do Zabbix Agent. Caso tenha instalado via gerenciador de pacote (yum, apt, zypper, etc.), ele estará no diretório `/etc/zabbix/zabbix_agentd.d/`, e em seguida, reinicie o serviço do zabbix_agent:
+Em seguida, coloque o arquivo [userparameter_systemd.conf](./userparameter_systemd.conf) no diretório de configurações do Zabbix Agent. Caso tenha instalado via gerenciador de pacote (yum, apt, zypper, etc.), ele estará no diretório `/etc/zabbix/zabbix_agentd.d/`, e em seguida, reinicie o serviço do zabbix_agent:
 
 ```shell
 cp zabbix-docs/systemd-services-monitor/userparameter_systemd.conf /etc/zabbix/zabbix_agentd.d/
