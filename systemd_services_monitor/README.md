@@ -1,5 +1,5 @@
 # systemd linux services
-Monitoramento de serviços do Linux, indicado para hosts baseados em systemd
+Monitoramento via Zabbix de serviços do Linux, indicado para hosts baseados em systemd
 ![systemd](zabbix_systemd.png)
 
 ## Motivação
