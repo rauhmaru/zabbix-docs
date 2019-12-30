@@ -3,6 +3,8 @@
 # Raul Liborio, rauhmaru@opensuse.org / gmail.com
 # v0.1 - 27/01/2019
 
+OLDLANG="$LANG"
+LANG="en_US.utf8"
 tmpfile=$( mktemp )
 
 # Todos os servicos
@@ -32,5 +34,7 @@ while read Unit Load Active Sub Description; do
       fi
 
 done < $tmpfile
-	
+
+LANG="#OLDLANG"
+
 rm -f $tmpfile $jsonfile
