@@ -35,6 +35,6 @@ while read Unit Load Active Sub Description; do
 
 done < $tmpfile
 
-LANG="#OLDLANG"
+LANG="$OLDLANG"
 
 rm -f $tmpfile $jsonfile
