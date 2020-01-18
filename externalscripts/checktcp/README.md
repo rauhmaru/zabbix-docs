@@ -1,3 +1,8 @@
+# Um telnet no seu zabbix, sem criar item
+Muitas vezes precisamos fazer alguns testes mais dinâmicos em algumas portas específicas, para verificar se o alerta é real ou é um falso positivo. Geralmente utilizamos o comando `telnet`, mas, nem sempre ele está disponível. Mas, graças ao bash e seus builtins, é possível verificar portas sem executar nenhum comando a mais, apenas suas funções internas, como veremos nesse script abaixo.
+
+As configurações abaixo irão adicionar a função de verificar portas TCP (já que as UDP não respondem) no seu mapa.
+
 ## No Zabbix server
 
 No seu diretório de externalscripts, adicione o seguinte script:
