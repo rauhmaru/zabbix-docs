@@ -21,8 +21,8 @@ do
     (echo >/dev/tcp/${1}/${PORT}) >/dev/null 2>&1 && echo "+++ ${PORT} aberta"  \
     || echo "--- ${PORT} fechada"
   else
-  echo "Verificando portas TCP em $1..."
-  let count++
+    echo "Verificando portas TCP em $1..."
+    let count++
   fi
 done
 exit 0
