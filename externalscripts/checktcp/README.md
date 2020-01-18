@@ -26,7 +26,7 @@ Em Administração > Scripts, crie o novo script:
 * Nome: Checa portas TCP
 * Tipo: Script
 * Executar em: Servidor Zabbix (proxy)
-* Comandos: /usr/lib/zabbix/externalscripts/checktcp.sh {HOST.CONN} {$PORTA}
+* Comandos: `/usr/lib/zabbix/externalscripts/checktcp.sh {HOST.CONN} {$PORTA}`
 * Descrição: Verifica uma porta predefinida na macro {$PORTA}
 
 ![script config](script-config.PNG)
