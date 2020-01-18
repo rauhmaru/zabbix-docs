@@ -37,3 +37,15 @@ Em seguida, em Configuração > Hosts, selecione o host que ache necessário imp
 
 ## Teste
 Após isso, na tela de mapas, já estará disponível o botão e o teste poderá ser realizado.
+
+
+**Verificando a opção na tela de mapas**
+
+![menu em mapas](map-01.PNG)
+
+
+**Executando a ação**
+
+![executando a ação](map-02.PNG)
+
+
