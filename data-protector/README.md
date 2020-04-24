@@ -44,3 +44,19 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 | Key Management Server (KMS) status | dp.service.status[kms]	| Zabbix Agent |
 | Media Management Daemon (MMD) status | dp.service.status[mmd]	| Zabbix Agent |
 
+#### DP Sessions
+| Nome do item        | Chave           | Tipo |
+| ------------------- |:---------------|:------|
+|	DP Last session reports data |dp.lastsession.report | Zabbix Agent |
+| Last session aborted disk agents | dp.lastsession.report.aborteddiskagents |Item dependente	|
+| Last session completed disk agents | dp.lastsession.report.completeddiskagents |Item dependente	|
+| Last session disk agent errors total | 	dp.lastsession.report.diskagenterrorstotal |Item dependente	|
+| Last session failed disk agents | dp.lastsession.report.faileddiskagents |Item dependente	|
+| Last session failed media agents | dp.lastsession.report.failedmediaagents |Item dependente	|
+| Last session media agents total | dp.lastsession.report.mediaagentstotal |Item dependente	|
+| Last session total size | dp.lastsession.report.mbytestotal |Item dependente	|
+| Last session ID | dp.lastsession["1"]	 | Zabbix Agent |
+| Last session type | dp.lastsession["2"]	 | Zabbix Agent |
+| Last session status | dp.lastsession["3"]	 | Zabbix Agent |
+| Last session user.group@Host | dp.lastsession["4"]	 | Zabbix Agent |
+
