@@ -11,6 +11,17 @@ Crie o arquivo `/etc/zabbix/zabbix.d/userparameter_dp.conf` no host onde está i
 
 ```service zabbix-agent restart```
 
+Nosso template precisa do resultado de alguns comandos que possuem execução restrita. Para que funcione, precisamos permitir via sudo.
+Edite o arquivo `/etc/sudoers`:
+
+Adicione o trecho 
+```
+## Data Protector
+Cmnd_Alias DP = /opt/omni/sbin/utilns/get_info, /opt/omni/bin/omnimm, /opt/omni/sbin/omnidbcheck
+zabbix ALL=(ALL) NOPASSWD:DP
+```
+
+Crie o diretório `/scripts`, com os arquivos `dp_discovery_dcbf.sh` e `dp_discovery_pools.sh`
 
 
 ## Itens
