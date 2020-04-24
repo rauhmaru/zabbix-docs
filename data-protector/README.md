@@ -61,6 +61,6 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 | Last session user.group@Host | dp.lastsession["4"]	 | Zabbix Agent |
 
 ## Triggers
-| Nome da trigger      | Severidade  | Expressão           | Tags | Descrição |
-| -------------------- |:------------|:--------------------|:-----|:----------|
-| DP backup was finished with errors| Attention | {Template Data Protector:dp.lastsession["3"].str("Completed/Errors")}=1 | 	App: Data ProtectorService: Backup | Quando uma sessão de backup é executada e ocorre alguma falha em pelo menos um agente (host) de backup. |
+| Nome da trigger      | Severidade  | Expressão           |  Descrição |
+| -------------------- |:------------|:--------------------|:-----|
+| DP backup was finished with errors| Attention | {dp.lastsession["3"].str("Completed/Errors")}=1 |  Quando uma sessão de backup é executada e ocorre alguma falha em pelo menos um agente (host) de backup. |
