@@ -6,6 +6,13 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 - Data Protector A.09.00
 - CentOS 7
 
+## Instalação
+Crie o arquivo `/etc/zabbix/zabbix.d/userparameter_dp.conf` no host onde está instalado o Data Protector e reinicie o serviço:
+
+```service zabbix-agent restart```
+
+
+
 ## Itens
 ### Applications
 #### DP Cell Info
