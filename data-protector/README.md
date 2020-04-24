@@ -72,3 +72,44 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 | Service HPDP KMS is not running | High | 	{Template Data Protector:dp.service.status[kms].str(Active)}=0	 | |
 | Service HPDP MMD is not running | High | {Template Data Protector:dp.service.status[mmd].str(Active)}=0 | |
 | Service HPDP omnitrig is not running | High | 	{Template Data Protector:dp.service.status[omnitrig].str(Active)}=0 | |
+
+## Gráficos
+- Last session backup size: Shows:
+  - Last session total size
+  
+- Last session information: Shows:
+  - Last session aborted disk
+  - Last session completed disk
+  - Last session disk agent errors
+  - Last session failed disk
+  - Last session failed media
+
+## Regras de descoberta
+| Nome da regra      | Chave  |
+| ------------------ |:-------|
+| DCBF discovery | dp.discovery.dcbf |
+| Pools discovery | dp.discovery.pools	|
+
+### DCBF discovery itens
+| Nome do item      | Chave  | Tipo |
+| ------------------ |:-------|:-----|
+|{#DCBF} size (%)	| dp.dcbf.dir["{#DCBF}"] | Zabbix Agent |
+
+### Pools discovery itens
+| Nome do item       | Chave  | Tipo |
+| ------------------ |:-------|:-----|
+| [{#POOLNAME}] Pool raw data | dp.pool.raw["{#POOLNAME}"]	| Zabbix Agent |
+| [{#POOLNAME}] Poor media | dp.pool.raw.media.poor.media["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Fair media | dp.pool.raw.media.fair.media["{#POOLNAME}"]  |	Item dependente |
+| [{#POOLNAME}] Blocks used |	dp.pool.raw.pool.blocks.used["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Free pool support |	dp.pool.raw.free.pool.support["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Magazine support |	dp.pool.raw.magazine.support["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Blocks total |	dp.pool.raw.pool.blocks.total["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Maximum overwrites |	dp.pool.raw.media.maximum.overwrites["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Pool Description |	dp.pool.raw.pool.description["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Media type |	dp.pool.raw.media.type["{#POOLNAME}"]  |	Item dependente |
+| [{#POOLNAME}] Pool Policy |	dp.pool.raw.pool.policy["{#POOLNAME}"] |	Item dependente |
+| [{#POOLNAME}] Altogether media | dp.pool.raw.pool.altogether.media["{#POOLNAME}"]	 |	Item dependente |
+| [{#POOLNAME}] Medium age limit |	dp.pool.raw.media.medium.age.limit["{#POOLNAME}"] |	Item dependente |
+
+
