@@ -64,3 +64,11 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 | Nome da trigger      | Severidade  | Expressão           |  Descrição |
 | -------------------- |:------------|:--------------------|:-----|
 | DP backup was finished with errors| Attention | {Template Data Protector:dp.lastsession["3"].str("Completed/Errors")}=1 |  Quando uma sessão de backup é executada e ocorre alguma falha em pelo menos um agente (host) de backup. |
+| DP backup was finished with failures | Attention | {Template Data Protector:dp.lastsession["3"].str("Completed/Failures")}=1 | Quando uma sessão de backup é iniciada e não é possível a execução um ou mais agentes (host) de backup.|
+| DP Session backup failed | Attention | {Template Data Protector:dp.lastsession["3"].str(Failed)}=1 | Quando uma sessão de backup é iniciada e não é possível a sua execução. |
+| Service HPDP-IDB-CP is not running | High | {Template Data Protector:dp.service.status[-cp].str(Active)}=0 | |
+| Service HPDP-IDB is not running | High | 	{Template Data Protector:dp.service.status[hpdp-idb].str(Active)}=0 | |
+| Service HPDP Application Server is not running | High | {Template Data Protector:dp.service.status[-as].str(Active)}=0 | |
+| Service HPDP KMS is not running | High | 	{Template Data Protector:dp.service.status[kms].str(Active)}=0	 | |
+| Service HPDP MMD is not running | High | {Template Data Protector:dp.service.status[mmd].str(Active)}=0 | |
+| Service HPDP omnitrig is not running | High | 	{Template Data Protector:dp.service.status[omnitrig].str(Active)}=0 | |
