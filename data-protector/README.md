@@ -7,16 +7,18 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 - CentOS 7
 
 ## Itens
-### Aplications
+### Applications
 #### DP Cell Info
 | Nome do item        | Chave           | Tipo  | 
 | ------------------- |:---------------|:-------|
 | Number of host agents  | dp.number.agents	  | Zabbix Agent  | DP Cell Info |
 
+
 #### DP Database info
 | Nome do item        | Chave           | Tipo  | 
 | ------------------- |:---------------|:-------|
 | Status of database report generator      | dp.report.db_size | Zabbix Agent |
+
 
 #### DP IDB Consistency Check
 | Nome do item        | Chave           | Tipo  | 
@@ -30,11 +32,15 @@ O software Micro Focus Data Protection oferece backup e recuperação de dados e
 | IDB Schema consistency | dp.idb.consistency.check.schema | Item dependente |
 | IDB SIBF(readability) |  	dp.idb.consistency.check.sibf | Item dependente |
 
-#### DP Services
 
+#### DP Services
 | Nome do item        | Chave           | Tipo |
-| ------------------- |:---------------|-------|
-| Media Management Daemon (MMD) status |  dp.service.status[mmd] | Zabbix Agent  |
-| Key Management Server (KMS) status |  dp.service.status[kms] | Zabbix Agent  |
-| DP scheduled backups (omnitrig) status | dp.service.status[omnitrig] | Zabbix Agent  |
-| DP Internal Database (HPDP-IDB) status	 |  dp.service.status[hpdp-idb] | Zabbix Agent  |
+| ------------------- |:---------------|:------|
+| Media Management Daemon (MMD) status |  dp.service.status[mmd] | Zabbix Agent |
+| Key Management Server (KMS) status |  dp.service.status[kms] | Zabbix Agent |
+| DP scheduled backups (omnitrig) status | dp.service.status[omnitrig] | Zabbix Agent |
+| DP Internal Database (HPDP-IDB) status | dp.service.status[hpdp-idb] | Zabbix Agent |
+|	DP scheduled backups (omnitrig) status | dp.service.status[omnitrig] | Zabbix Agent |
+| Key Management Server (KMS) status | dp.service.status[kms]	| Zabbix Agent |
+| Media Management Daemon (MMD) status | dp.service.status[mmd]	| Zabbix Agent |
+
