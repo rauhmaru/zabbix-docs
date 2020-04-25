@@ -13,7 +13,7 @@ Crie o arquivo [`/etc/zabbix/zabbix.d/userparameter_dp.conf`](https://github.com
 service zabbix-agent restart
 ```
 
-Nosso template precisa do resultado de alguns comandos que possuem execução restrita. Para que funcione, precisamos permitir via sudo.
+O template precisa do resultado de alguns comandos que possuem execução privilegiada. Para que funcione, é necessário que o usuário zabbix consiga executar alguns comandos com o sudo.
 Edite o arquivo `/etc/sudoers` com o comando `visudo`:
 
 Adicione o trecho 
@@ -23,7 +23,7 @@ Cmnd_Alias DP = /opt/omni/sbin/utilns/get_info, /opt/omni/bin/omnimm, /opt/omni/
 zabbix ALL=(ALL) NOPASSWD:DP
 ```
 
-Crie o diretório `/scripts`, com os arquivos [`dp_discovery_dcbf.sh`](https://github.com/rauhmaru/zabbix-docs/blob/master/data-protector/dp_discovery_dcbf.sh) e [`dp_discovery_pools.sh`](https://github.com/rauhmaru/zabbix-docs/blob/master/data-protector/dp_discovery_pools.sh)
+Crie o diretório `/scripts`, com os arquivos [`dp_discovery_dcbf.sh`](https://github.com/rauhmaru/zabbix-docs/blob/master/data-protector/dp_discovery_dcbf.sh) e [`dp_discovery_pools.sh`](https://github.com/rauhmaru/zabbix-docs/blob/master/data-protector/dp_discovery_pools.sh). Você pode colocar esses scripts em outro local, mas lembre-se de mudar esse local também no arquivo [`/etc/zabbix/zabbix.d/userparameter_dp.conf`](https://github.com/rauhmaru/zabbix-docs/blob/master/data-protector/userparameter_dp.conf)
 
 
 ## Itens
