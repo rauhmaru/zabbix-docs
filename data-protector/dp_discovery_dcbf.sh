@@ -10,12 +10,12 @@ ReportFile="/tmp/omnirpt_rpt_dbsize.out"
 
 awk '/Detail Catalog Binary Files/,0{ if ($1 ~ /dcbf/ && $3 ~ /[0-9]$/ ) print $1,$NF}' $ReportFile > $tmpfile
 
-
 # Criacao do json
 TotalDeLinhas=$( wc -l < $tmpfile )
 Final=$(( TotalDeLinhas -1  ))
 
 sed -i 's/ .*//g;' $tmpfile
+
 # Loop para composicao do arquivo json
 echo -e "{\n\t\"data\":[\n"
 
@@ -30,10 +30,6 @@ echo -e "  {"
                 fi
 done < $tmpfile
 
-
-
 rm -f $tmpfile
-
 LANG=$OLDLANG
-
 exit 0
