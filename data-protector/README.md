@@ -36,7 +36,7 @@ O número de agentes com o Data Protector.
 
 
 #### DP Database info
-O item verifica se o arquivo /tmp/omnirpt_rpt_dbsize.out foi gerado. Os dados contidos nesse arquivo serve para alimentar outros itens deste template.
+O item verifica se o arquivo `/tmp/omnirpt_rpt_dbsize.out` foi gerado. Os dados contidos nesse arquivo serve para alimentar outros itens deste template.
 | Nome do item        | Chave           | Tipo  | 
 | :------------------ |:---------------|:-------|
 | Status of database report generator      | dp.report.db_size | Zabbix Agent |
@@ -53,20 +53,19 @@ Verificação de vários itens da base interna de consistência.
 | IDB Media consistency | dp.idb.consistency.check.media.consist  |  Item dependente |
 | IDB OMNIDC(consistency) | dp.idb.consistency.check.omnidc  | Item dependente |
 | IDB Schema consistency | dp.idb.consistency.check.schema | Item dependente |
-| IDB SIBF(readability) |  	dp.idb.consistency.check.sibf | Item dependente |
+| IDB SIBF(readability) |  dp.idb.consistency.check.sibf | Item dependente |
 
 
 #### DP Services
 Serviços necessários para o pleno funcionamento do Data Protector
 | Nome do item        | Chave           | Tipo |
 | :------------------ |:---------------|:------|
-| Media Management Daemon (MMD) status |  dp.service.status[mmd] | Zabbix Agent |
-| Key Management Server (KMS) status |  dp.service.status[kms] | Zabbix Agent |
-| DP scheduled backups (omnitrig) status | dp.service.status[omnitrig] | Zabbix Agent |
+| Media Management Daemon (MMD) status | dp.service.status[mmd] | Zabbix Agent |
+| Key Management Server (KMS) status | dp.service.status[kms] | Zabbix Agent |
 | DP Internal Database (HPDP-IDB) status | dp.service.status[hpdp-idb] | Zabbix Agent |
 |	DP scheduled backups (omnitrig) status | dp.service.status[omnitrig] | Zabbix Agent |
-| Key Management Server (KMS) status | dp.service.status[kms]	| Zabbix Agent |
-| Media Management Daemon (MMD) status | dp.service.status[mmd]	| Zabbix Agent |
+| DP Catalog Protection (HPDP-IDB-CP) status | dp.service.status[-cp]		| Zabbix Agent |
+| DP Application Server (HPDP-IDB-AS) status | dp.service.status[-as]	| Zabbix Agent |
 
 #### DP Sessions
 Informações sobre as últimas sessões do Data Protector, tais como sessões abortadas, falhas, completas, erros nos agentes de disco, falhas no agente de mídia, tamanho total da sessão, etc.
