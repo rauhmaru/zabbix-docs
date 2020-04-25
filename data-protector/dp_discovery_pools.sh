@@ -7,7 +7,7 @@ OLDLANG="$LANG"
 LANG="en_US.utf8"
 
 tmpfile=$( mktemp )
-sudo /opt/omni/bin/omnimm -show_pools -detail | awk -F ' : ' '/Pool name/{ print $NF}' > $tmpfile
+sudo /opt/omni/bin/omnimm -show_pools -detail | awk -F ' : ' '/Pool name/{ print $NF }' > $tmpfile
 
 # Criacao do json
 TotalDeLinhas=$( wc -l < $tmpfile )
