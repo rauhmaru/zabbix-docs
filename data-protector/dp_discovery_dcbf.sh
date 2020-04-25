@@ -1,5 +1,7 @@
 #!/bin/bash
 # LLD to find DCBF directories size
+# Raul Liborio rauhmaru@opensuse.org
+# https://github.com/rauhmaru
 
 OLDLANG="$LANG"
 LANG="en_US.utf8"
