@@ -1,5 +1,7 @@
 #!/bin/bash
 # Lista os servicos e verifica se estao em execucao
+# Raul Liborio rauhmaru@opensuse.org
+# https://github.com/rauhmaru
 
 OLDLANG="$LANG"
 LANG="en_US.utf8"
