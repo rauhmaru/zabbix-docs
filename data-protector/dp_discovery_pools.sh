@@ -27,7 +27,5 @@ echo -e "  {"
 done < $tmpfile
 
 rm -f $tmpfile
-
 LANG=$OLDLANG
-
 exit 0
