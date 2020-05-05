@@ -43,7 +43,7 @@ Ele executa um `show databases;`, lista as bases, remove o que não é necessár
 ##### Recomendações
 *  No meu exemplo, eu o coloquei no diretório `/scripts`. Caso altere esse local, não se esqueça de mudar sua localização também no arquivo [userparameter_lld.conf](https://github.com/rauhmaru/zabbix-docs/blob/master/backup-monitor/userparameter_lld.conf), que é quem invoca e executa esse script. Lembre-se de dar permissão de execução:
 ```shell
-chmod +x /scripts/mysql-lista-bases.sh
+chmod +x /scripts/mysql_lista_bases.sh
 ```
 
 * Crie um usuário com permissão de apenas leitura para essa rotina. Você pode utilizar também o mesmo usuário que executa o backup das bases.
