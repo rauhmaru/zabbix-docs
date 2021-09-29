@@ -5,7 +5,9 @@ Materiais criados para atender demandas pessoais :)
 
 * [Telegram-scripts](https://github.com/rauhmaru/telegram-scripts): Integração com Zabbix com o Telegram, feito em shellscript.
 * [Rocketchat-zabbix](https://github.com/rauhmaru/rocketchat-zabbix): Integração do Zabbix com o RocketChat.
-* [externalscripts/checktcp](https://github.com/rauhmaru/zabbix-docs/tree/master/externalscripts/checktcp): Script externo, que adiciona a opção de verificação de portas TCP na tela de mapas.
+* [zabbix/externalscripts/checktcp](https://github.com/rauhmaru/zabbix-docs/tree/master/externalscripts/checktcp): Script externo, que adiciona a opção de verificação de portas TCP na tela de mapas.
+* [pushbullet-zabbix](https://github.com/rauhmaru/pushbullet-zabbix): Integração do Pushbullet com o Zabbix usando Shellscript.
+
 
 # Zabbix Templates
 
